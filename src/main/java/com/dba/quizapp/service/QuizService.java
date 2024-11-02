@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.dba.quizapp.model.QuestionWrapper;
+import com.dba.quizapp.model.Answer;
 import com.dba.quizapp.model.Question;
 import com.dba.quizapp.model.Quiz;
 import com.dba.quizapp.repository.QuestionRepo;
@@ -56,6 +57,25 @@ public class QuizService {
         }
 
         return new ResponseEntity<>(questionForUser, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Integer> calculateResult(int id, List<Answer> answers) {
+
+        Optional<Quiz> quiz = repo.findById(id);
+
+        List<Question> questions = quiz.get().getQuestions();
+
+        int correctAnswers = 0;
+        int i = 0;
+
+        for (Answer a : answers) {
+            if (a.getAnswer().equals(questions.get(i).getCorrectAnswer())) {
+                correctAnswers++;
+            }
+            i++;
+        }
+
+        return new ResponseEntity<>(correctAnswers, HttpStatus.OK);
     }
 
 }
