@@ -18,4 +18,18 @@ public class QuestionService {
         return repo.findAll();
     }
 
+    public List<Questions> getQuestionsByCategory(String category) {
+        return repo.findByCategory(category);
+    }
+
+    public String addOrUpdateQuestion(Questions question) {
+        repo.save(question);
+        return "success";
+    }
+
+    public String deleteQuestion(int id) {
+        repo.deleteById(id);
+        return "success";
+    }
+
 }
