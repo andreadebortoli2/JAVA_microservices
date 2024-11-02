@@ -1,27 +1,24 @@
 package com.dba.quizapp.model;
 
-import java.util.List;
-
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Quiz {
+public class QuestionWrapper {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String title;
+    private String questionText;
+    private String option1;
+    private String option2;
+    private String option3;
+    private String option4;
 
-    @ManyToMany
-    private List<Question> questions;
 }
