@@ -8,6 +8,7 @@ import com.dba.quizapp.service.QuestionService;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,40 +25,28 @@ public class QuestionController {
     QuestionService service;
 
     @GetMapping("allQuestions")
-    public List<Questions> getAllQiestions() {
+    public ResponseEntity<List<Questions>> getAllQiestions() {
         return service.getAllQuestions();
     }
 
     @GetMapping("category/{category}")
-    public List<Questions> getQuestionsByCategory(@PathVariable String category) {
+    public ResponseEntity<List<Questions>> getQuestionsByCategory(@PathVariable String category) {
         return service.getQuestionsByCategory(category);
     }
 
     @PostMapping("add")
-    public String addQuestion(@RequestBody Questions question) {
-        if (service.addOrUpdateQuestion(question) == "success") {
-            return "Question added";
-        } else {
-            return "something went wrong, qestion not added";
-        }
+    public ResponseEntity<String> addQuestion(@RequestBody Questions question) {
+        return service.addOrUpdateQuestion(question);
     }
 
     @PutMapping("update")
-    public String updateQuestion(@RequestBody Questions question) {
-        if (service.addOrUpdateQuestion(question) == "success") {
-            return "Question updated";
-        } else {
-            return "something went wrong, qestion not updated";
-        }
+    public ResponseEntity<String> updateQuestion(@RequestBody Questions question) {
+        return service.addOrUpdateQuestion(question);
     }
 
     @DeleteMapping("delete/{id}")
-    public String deleteQuestion(@PathVariable int id) {
-        if (service.deleteQuestion(id) == "success") {
-            return "Question deleted";
-        } else {
-            return "something went wrong, qestion not deleted";
-        }
+    public ResponseEntity<String> deleteQuestion(@PathVariable int id) {
+        return service.deleteQuestion(id);
     }
 
 }
