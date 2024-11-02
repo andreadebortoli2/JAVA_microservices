@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.dba.quizapp.model.Questions;
+import com.dba.quizapp.model.Question;
 import com.dba.quizapp.repository.QuestionRepo;
 
 @Service
@@ -17,7 +17,7 @@ public class QuestionService {
     @Autowired
     QuestionRepo repo;
 
-    public ResponseEntity<List<Questions>> getAllQuestions() {
+    public ResponseEntity<List<Question>> getAllQuestions() {
         try {
             return new ResponseEntity<>(repo.findAll(), HttpStatus.OK);
         } catch (Exception e) {
@@ -26,7 +26,7 @@ public class QuestionService {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<List<Questions>> getQuestionsByCategory(String category) {
+    public ResponseEntity<List<Question>> getQuestionsByCategory(String category) {
         try {
             return new ResponseEntity<>(repo.findByCategory(category), HttpStatus.OK);
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class QuestionService {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<String> addOrUpdateQuestion(Questions question) {
+    public ResponseEntity<String> addOrUpdateQuestion(Question question) {
         try {
             repo.save(question);
             return new ResponseEntity<>("success", HttpStatus.CREATED);

@@ -6,14 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.dba.quizapp.model.Questions;
+import com.dba.quizapp.model.Question;
 
 @Repository
-public interface QuestionRepo extends JpaRepository<Questions, Integer> {
+public interface QuestionRepo extends JpaRepository<Question, Integer> {
 
-    List<Questions> findByCategory(String category);
+    List<Question> findByCategory(String category);
 
-    @Query(value = "SELECT * FROM questions q WHERE q.category=:category ORDER BY RANDOM() LIMIT :numQ", nativeQuery = true)
-    List<Questions> findRandomQuestionsByCategory(String category, int numQ);
+    @Query(value = "SELECT * FROM question q WHERE q.category=:category ORDER BY RANDOM() LIMIT :numQ", nativeQuery = true)
+    List<Question> findRandomQuestionsByCategory(String category, int numQ);
 
 }

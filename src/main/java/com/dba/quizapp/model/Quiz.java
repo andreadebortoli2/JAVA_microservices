@@ -23,5 +23,5 @@ public class Quiz {
     private Integer id;
     private String title;
     @ManyToAny
-    private List<Questions> questions;
+    private List<Question> question;
 }

@@ -2,7 +2,7 @@ package com.dba.quizapp.controllers.api;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dba.quizapp.model.Questions;
+import com.dba.quizapp.model.Question;
 import com.dba.quizapp.service.QuestionService;
 
 import java.util.List;
@@ -25,22 +25,22 @@ public class QuestionController {
     QuestionService service;
 
     @GetMapping("allQuestions")
-    public ResponseEntity<List<Questions>> getAllQiestions() {
+    public ResponseEntity<List<Question>> getAllQiestions() {
         return service.getAllQuestions();
     }
 
     @GetMapping("category/{category}")
-    public ResponseEntity<List<Questions>> getQuestionsByCategory(@PathVariable String category) {
+    public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category) {
         return service.getQuestionsByCategory(category);
     }
 
     @PostMapping("add")
-    public ResponseEntity<String> addQuestion(@RequestBody Questions question) {
+    public ResponseEntity<String> addQuestion(@RequestBody Question question) {
         return service.addOrUpdateQuestion(question);
     }
 
     @PutMapping("update")
-    public ResponseEntity<String> updateQuestion(@RequestBody Questions question) {
+    public ResponseEntity<String> updateQuestion(@RequestBody Question question) {
         return service.addOrUpdateQuestion(question);
     }
 
