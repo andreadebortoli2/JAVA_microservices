@@ -1,11 +1,11 @@
 package com.dba.quiz_service.controllers.api;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dba.quiz_service.model.Answer;
 import com.dba.quiz_service.model.QuestionWrapper;
+import com.dba.quiz_service.model.QuizDto;
 import com.dba.quiz_service.service.QuizService;
 
 import java.util.List;
@@ -25,9 +25,8 @@ public class QuizController {
     QuizService service;
 
     @PostMapping("create")
-    public ResponseEntity<String> createQuiz(@RequestParam String category, @RequestParam int numQ,
-            @RequestParam String title) {
-        return service.createQuiz(category, numQ, title);
+    public ResponseEntity<String> createQuiz(@RequestBody QuizDto quizDto) {
+        return service.createQuiz(quizDto.getCategoryName(), quizDto.getNumQuestions(), quizDto.getTitle());
     }
 
     @GetMapping("get/{id}")
