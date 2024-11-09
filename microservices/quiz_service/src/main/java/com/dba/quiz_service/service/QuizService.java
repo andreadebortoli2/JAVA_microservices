@@ -1,7 +1,7 @@
 package com.dba.quiz_service.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,39 +37,19 @@ public class QuizService {
 
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(int id) {
 
-        // Optional<Quiz> quiz = repo.findById(id);
+        Optional<Quiz> quiz = repo.findById(id);
+        List<Integer> questionIds = quiz.get().getQuestionIds();
 
-        // List<Question> questionsFromDB = quiz.get().getQuestions();
+        ResponseEntity<List<QuestionWrapper>> questions = quizInteface.getQuestionsFromId(questionIds);
 
-        List<QuestionWrapper> questionForUser = new ArrayList<>();
-
-        // for (Question q : questionsFromDB) {
-        // QuestionWrapper qw = new QuestionWrapper(q.getId(), q.getQuestionText(),
-        // q.getOption1(), q.getOption2(),
-        // q.getOption3(), q.getOption4());
-        // questionForUser.add(qw);
-        // }
-
-        return new ResponseEntity<>(questionForUser, HttpStatus.OK);
+        return questions;
     }
 
     public ResponseEntity<Integer> calculateResult(int id, List<Answer> answers) {
 
-        // Optional<Quiz> quiz = repo.findById(id);
+        ResponseEntity<Integer> score = quizInteface.getScore(answers);
 
-        // List<Question> questions = quiz.get().getQuestions();
-
-        int correctAnswers = 0;
-        // int i = 0;
-
-        // for (Answer a : answers) {
-        // if (a.getAnswer().equals(questions.get(i).getCorrectAnswer())) {
-        // correctAnswers++;
-        // }
-        // i++;
-        // }
-
-        return new ResponseEntity<>(correctAnswers, HttpStatus.OK);
+        return score;
     }
 
 }
